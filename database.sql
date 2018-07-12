@@ -1,0 +1,71 @@
+CREATE DATABASE IF NOT EXISTS fanfout;
+
+USE fanfout;
+
+
+/**
+ * Create table user
+ */
+
+CREATE TABLE user(
+  id INT(255) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  name VARCHAR(255),
+  equipo VARCHAR(255),
+  city VARCHAR(255),
+  password CHAR(255) NOT NULL,
+  createdAt DATETIME,
+  status BOOLEAN
+)ENGINE=INNODB;
+
+
+CREATE TABLE files(
+	id INT(255) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	name VARCHAR(255),
+	gallery INT(255),
+	user INT(255) NOT NULL,
+	avatar BOOLEAN,
+	createdAt DATETIME,
+	FOREIGN KEY(user) REFERENCES user(id)
+)ENGINE=INNODB;
+
+
+CREATE TABLE figurita(
+	id INT(255) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	name VARCHAR(255),
+	citie VARCHAR(255),
+	user INT(255) NOT NULL,
+	file INT(255),
+	createdAt DATETIME,
+	FOREIGN KEY (user) REFERENCES user(id),
+	FOREIGN KEY (file) REFERENCES files(id)
+)ENGINE=INNODB;
+
+
+
+CREATE TABLE post(
+	id INT(255) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	message TEXT,
+	file INT(255),
+	user int(255) NOT NULL,
+	createdAt DATETIME,
+	FOREIGN KEY (user) REFERENCES user(id),
+	FOREIGN KEY (file) REFERENCES files(id)
+)ENGINE=INNODB;
+
+
+CREATE TABLE comments(
+	id INT(255) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	respt TEXT,
+	post int(255) NOT NULL,
+	user int(255) NOT NULL,
+	createdAt DATETIME,
+	FOREIGN KEY (user) REFERENCES user(id),
+	FOREIGN KEY (post) REFERENCES post(id)
+)ENGINE=INNODB;
+
+
+
+
+
+
